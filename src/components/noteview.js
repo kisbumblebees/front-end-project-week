@@ -35,7 +35,7 @@ const NoteView = props => {
               myFunc={() =>
                 props.reallyDeleteMethod(
                   props.fetcher,
-                  "https://killer-notes.herokuapp.com/note/",
+                  "https://back-end-project-zach-campbell.herokuapp.com/api/notes",
                   props.note._id
                 )
               }
