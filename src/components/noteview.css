@@ -14,15 +14,15 @@
 /*The links themselves  */
 .note-view-link {
   margin: 6px;
-  font-family: 'Roboto', sans-serif;
-  font-size: .9rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
   text-decoration: underline;
   cursor: pointer;
 }
 
 /*The title of the note  */
 .note-view-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: left;
 }
 
@@ -55,7 +55,7 @@
 }
 
 /*Messing with a bootstrap classname to remove border radius  */
-.modal-content  {
+.modal-content {
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
   border-radius: 0px !important;

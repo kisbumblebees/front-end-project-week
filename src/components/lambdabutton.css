@@ -1,10 +1,9 @@
-
 /* General button style */
 .lambda-button {
   border: solid #979797 1px;
   text-align: center;
   color: white;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   padding: 8px;
   margin: 16px 0;
   width: 100%;
@@ -13,11 +12,10 @@
 }
 /* Class for the custom red color */
 .lambda-button-red {
-  background: #D0021B;
+  background: #d0021b;
 }
 
 /* Class for the custom green color */
 .lambda-button-green {
-  background: #2BC1C4;
-
+  background: #2bc1c4;
 }

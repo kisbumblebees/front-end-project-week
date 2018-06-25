@@ -9,10 +9,9 @@
   cursor: pointer;
 }
 
-
 /* Style for the title of the note. */
 .note-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.1rem;
   margin: 0;
   text-align: left;
@@ -33,14 +32,14 @@
   position: absolute;
   right: 10px;
   width: 1em;
-  height: .4em;
+  height: 0.4em;
   margin-top: 0.8em;
   background: white;
 }
 
 /* Style for the main note text */
 .note-text {
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: left;
   margin: 5px 0 0 0;
   line-height: 160%;
@@ -77,5 +76,5 @@
 /* The line between title and text */
 .horizontal-line {
   height: 0;
-  border: solid #979797 .5px;
+  border: solid #979797 0.5px;
 }

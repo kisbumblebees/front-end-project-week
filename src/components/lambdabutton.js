@@ -1,9 +1,8 @@
-import React from 'react';
-import './lambdabutton.css'
-
+import React from "react";
+import "./lambdabutton.css";
 
 //Very simple button component.
-const LambdaButton = (props) => {
+const LambdaButton = props => {
   return (
     <div
       onClick={props.myFunc}
@@ -12,7 +11,6 @@ const LambdaButton = (props) => {
       {props.text}
     </div>
   );
-}
-
+};
 
 export default LambdaButton;
