@@ -24,7 +24,7 @@ import {
 const backendUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
-    : "https://back-end-project-zach-campbell.herokuapp.com/";
+    : "https://back-end-project-zach-campbell.herokuapp.com";
 
 //The main app.
 class App extends Component {
