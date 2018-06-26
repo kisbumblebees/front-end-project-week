@@ -18,6 +18,10 @@ export const ALPHABETIZE_NOTES = "ALPHABETIZE_NOTES";
 export const SHORTEST_NOTES = "SHORTEST_NOTES";
 export const LONGEST_NOTES = "LONGEST_NOTES";
 export const REV_ALPHABETIZE_NOTES = "REV_ALPHABETIZE_NOTES";
+export const CREATING_USER = "CREATING_USER";
+export const CREATED_USER = "CREATED_USER";
+export const LOGGING_USER = "LOGGING_USER";
+export const LOGGED_USER = "LOGGED_USER";
 
 //Asynchronus actions.  These issue actions specific to their operation that put
 //the app in a loading state, then when the request is complete send a payload
@@ -77,6 +81,34 @@ export const saveNew = (nextAct, url, note) => {
       .then(data => {
         dispatch({ type: DONE_SAVING });
         nextAct(url);
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
+
+export const createUser = (url, cred) => {
+  const request = axios.post(url + "/api/users", cred);
+  return dispatch => {
+    dispatch({ type: CREATING_USER });
+    request
+      .then(data => {
+        dispatch({ type: CREATED_USER });
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, payload: err });
+      });
+  };
+};
+
+export const loginUser = (url, cred) => {
+  const request = axios.post(url + "/api/auth", cred);
+  return dispatch => {
+    dispatch({ type: LOGGING_USER });
+    request
+      .then(data => {
+        dispatch({ type: LOGGED_USER });
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });

@@ -3,6 +3,7 @@ import { Row, Col } from "reactstrap";
 import "./App.css";
 import ContentArea from "./components/contentarea.js";
 import SideMenu from "./components/sidemenu.js";
+import LoginScreen from "./components/loginscreen.js";
 import { connect } from "react-redux";
 import {
   fetcher,
@@ -18,7 +19,9 @@ import {
   alphabetizeNotes,
   shortestNotes,
   longestNotes,
-  revAlphabetizeNotes
+  revAlphabetizeNotes,
+  createUser,
+  loginUser
 } from "./actions";
 
 const backendUrl =
@@ -31,49 +34,59 @@ class App extends Component {
   //Get initial data from the server after the app mounts
   componentDidMount() {
     console.log(process.env);
-    this.props.fetcher(backendUrl + "/api/notes");
+    if (this.props.loggedIn) this.props.fetcher(backendUrl + "/api/notes");
   }
 
   //Render the two main subcomponents, SideMenu and ContentArea, and pass them
   //their props.
   render() {
-    return (
-      <div className="App">
-        <Row>
-          <Col className="left-side" xs="3">
-            <SideMenu
-              backendUrl={backendUrl}
-              listMethod={this.props.goToList}
-              createMethod={this.props.startCreate}
-              alphabetizeNotes={this.props.alphabetizeNotes}
-              revAlphabetizeNotes={this.props.revAlphabetizeNotes}
-              shortestNotes={this.props.shortestNotes}
-              longestNotes={this.props.longestNotes}
-              appState={this.props.appState}
-              error={this.props.error}
-              fetcher={this.props.fetcher}
-            />
-          </Col>
-          <Col className="content" xs="9">
-            <ContentArea
-              backendUrl={backendUrl}
-              viewMethod={this.props.viewNote}
-              appState={this.props.appState}
-              notes={this.props.notes}
-              viewId={this.props.viewId}
-              deleteMethod={this.props.startDelete}
-              reallyDeleteMethod={this.props.reallyDelete}
-              cancelDeleteMethod={this.props.cancelDelete}
-              editMethod={this.props.editNote}
-              saveEditMethod={this.props.saveEdit}
-              saveNewMethod={this.props.saveNew}
-              fetcher={this.props.fetcher}
-              error={this.props.error}
-            />
-          </Col>
-        </Row>
-      </div>
-    );
+    if (this.props.loggedIn) {
+      return (
+        <div className="App">
+          <Row>
+            <Col className="left-side" xs="3">
+              <SideMenu
+                backendUrl={backendUrl}
+                listMethod={this.props.goToList}
+                createMethod={this.props.startCreate}
+                alphabetizeNotes={this.props.alphabetizeNotes}
+                revAlphabetizeNotes={this.props.revAlphabetizeNotes}
+                shortestNotes={this.props.shortestNotes}
+                longestNotes={this.props.longestNotes}
+                appState={this.props.appState}
+                error={this.props.error}
+                fetcher={this.props.fetcher}
+              />
+            </Col>
+            <Col className="content" xs="9">
+              <ContentArea
+                backendUrl={backendUrl}
+                viewMethod={this.props.viewNote}
+                appState={this.props.appState}
+                notes={this.props.notes}
+                viewId={this.props.viewId}
+                deleteMethod={this.props.startDelete}
+                reallyDeleteMethod={this.props.reallyDelete}
+                cancelDeleteMethod={this.props.cancelDelete}
+                editMethod={this.props.editNote}
+                saveEditMethod={this.props.saveEdit}
+                saveNewMethod={this.props.saveNew}
+                fetcher={this.props.fetcher}
+                error={this.props.error}
+              />
+            </Col>
+          </Row>
+        </div>
+      );
+    } else {
+      return (
+        <LoginScreen
+          createUser={this.props.createUser}
+          loginUser={this.props.loginUser}
+          backendUrl={backendUrl}
+        />
+      );
+    }
   }
 }
 
@@ -83,7 +96,8 @@ const mapStateToProps = state => {
     notes: state.notes,
     appState: state.appState,
     viewId: state.viewId,
-    error: state.error
+    error: state.error,
+    loggedIn: state.loggedIn
   };
 };
 
@@ -104,6 +118,8 @@ export default connect(
     alphabetizeNotes,
     shortestNotes,
     longestNotes,
-    revAlphabetizeNotes
+    revAlphabetizeNotes,
+    createUser,
+    loginUser
   }
 )(App);
