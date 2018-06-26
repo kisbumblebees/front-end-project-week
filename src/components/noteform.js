@@ -56,7 +56,7 @@ class NoteForm extends React.Component {
           myFunc={() =>
             this.props.myMethod(
               this.props.fetcher,
-              "https://back-end-project-zach-campbell.herokuapp.com/api/notes",
+              this.props.backendUrl + "/api/notes",
               { title: this.state.myTitle, textBody: this.state.myContent },
               this.props.myId
             )

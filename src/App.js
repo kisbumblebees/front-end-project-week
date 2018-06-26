@@ -21,13 +21,17 @@ import {
   revAlphabetizeNotes
 } from "./actions";
 
+const backendUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5000"
+    : "https://back-end-project-zach-campbell.herokuapp.com/";
+
 //The main app.
 class App extends Component {
   //Get initial data from the server after the app mounts
   componentDidMount() {
-    this.props.fetcher(
-      "https://back-end-project-zach-campbell.herokuapp.com/api/notes"
-    );
+    console.log(process.env);
+    this.props.fetcher(backendUrl + "/api/notes");
   }
 
   //Render the two main subcomponents, SideMenu and ContentArea, and pass them
@@ -38,6 +42,7 @@ class App extends Component {
         <Row>
           <Col className="left-side" xs="3">
             <SideMenu
+              backendUrl={backendUrl}
               listMethod={this.props.goToList}
               createMethod={this.props.startCreate}
               alphabetizeNotes={this.props.alphabetizeNotes}
@@ -51,6 +56,7 @@ class App extends Component {
           </Col>
           <Col className="content" xs="9">
             <ContentArea
+              backendUrl={backendUrl}
               viewMethod={this.props.viewNote}
               appState={this.props.appState}
               notes={this.props.notes}

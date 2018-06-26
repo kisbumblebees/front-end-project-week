@@ -19,6 +19,7 @@ const ContentArea = props => {
       myNote = props.notes.filter(note => note._id === props.viewId)[0];
       return (
         <NoteView
+          backendUrl={props.backendUrl}
           appState={props.appState}
           note={myNote}
           deleteMethod={props.deleteMethod}
@@ -32,6 +33,7 @@ const ContentArea = props => {
     case "create":
       return (
         <NoteForm
+          backendUrl={props.backendUrl}
           fetcher={props.fetcher}
           topText="Create New Note:"
           myTitle=""
@@ -44,6 +46,7 @@ const ContentArea = props => {
       myNote = props.notes.filter(note => note._id === props.viewId)[0];
       return (
         <NoteForm
+          backendUrl={props.backendUrl}
           fetcher={props.fetcher}
           topText="Edit A Note:"
           myTitle={myNote.title}

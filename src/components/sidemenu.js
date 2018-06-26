@@ -14,9 +14,7 @@ const SideMenu = props => {
         key="0"
         text="Reload"
         color="red"
-        myFunc={() =>
-          props.fetcher("https://killer-notes.herokuapp.com/note/get/all")
-        }
+        myFunc={() => props.fetcher(props.backendUrl + "/api/notes")}
       />
     );
 
