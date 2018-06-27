@@ -2,6 +2,7 @@ import React from "react";
 import "./noteform.css";
 import { Form, FormGroup, Input } from "reactstrap";
 import LambdaButton from "./lambdabutton.js";
+import { Alert } from "reactstrap";
 
 class LoginScreen extends React.Component {
   //Store the inputs on local component state for now.
@@ -20,7 +21,7 @@ class LoginScreen extends React.Component {
 
   //The HTML:
   render() {
-    return (
+    const stuffToRender = [
       <Form id="login-form">
         <h5 className="login-form-heading">{this.props.topText}</h5>
         <FormGroup>
@@ -63,7 +64,20 @@ class LoginScreen extends React.Component {
           color="green"
         />
       </Form>
-    );
+    ];
+    if (this.props.appState === "fetching")
+      stuffToRender.push(
+        <Alert className="loading-alert" color="dark">
+          Loading ...
+        </Alert>
+      );
+    else if (this.props.appState === "error")
+      stuffToRender.push(
+        <Alert className="loading-alert" color="danger">
+          {this.props.error.message}
+        </Alert>
+      );
+    return stuffToRender;
   }
 }
 

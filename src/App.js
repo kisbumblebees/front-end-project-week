@@ -77,6 +77,8 @@ class App extends Component {
     } else {
       return (
         <LoginScreen
+          error={this.props.error}
+          appState={this.props.appState}
           createUser={this.props.createUser}
           loginUser={this.props.loginUser}
           backendUrl={backendUrl}
