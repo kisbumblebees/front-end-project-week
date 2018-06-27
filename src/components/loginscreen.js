@@ -3,10 +3,8 @@ import "./noteform.css";
 import { Form, FormGroup, Input } from "reactstrap";
 import LambdaButton from "./lambdabutton.js";
 
-//This form is able to create or edit depending on its props, and could do other
-//things as well if new callback functions were made for it.
 class LoginScreen extends React.Component {
-  //Store the inputs on local component state for the moment.
+  //Store the inputs on local component state for now.
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +44,7 @@ class LoginScreen extends React.Component {
         </FormGroup>
         <LambdaButton
           myFunc={() =>
-            this.props.loginUser(this.props.backendUrl, {
+            this.props.loginUser(this.props.fetcher, this.props.backendUrl, {
               username: this.state.username,
               password: this.state.password
             })
@@ -56,7 +54,7 @@ class LoginScreen extends React.Component {
         />
         <LambdaButton
           myFunc={() =>
-            this.props.createUser(this.props.backendUrl, {
+            this.props.createUser(this.props.fetcher, this.props.backendUrl, {
               username: this.state.username,
               password: this.state.password
             })

@@ -16,14 +16,19 @@ import {
   ERROR,
   SHORTEST_NOTES,
   LONGEST_NOTES,
-  REV_ALPHABETIZE_NOTES
+  REV_ALPHABETIZE_NOTES,
+  CREATING_USER,
+  CREATED_USER,
+  LOGGING_USER,
+  LOGGED_USER
 } from "../actions";
 
 const initialState = {
   notes: [],
   appState: "list",
   viewId: null,
-  error: null
+  error: null,
+  loggedIn: false
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -35,7 +40,17 @@ const noteReducer = (state = initialState, action) => {
     case REALLY_DELETE:
     case DONE_SAVING:
     case DONE_DELETING:
+    case CREATING_USER:
+    case LOGGING_USER:
       return Object.assign({}, state, { appState: "fetching", error: null });
+
+    //Auth actions
+    case CREATED_USER:
+    case LOGGED_USER:
+      return Object.assign({}, state, {
+        appState: "list",
+        loggedIn: action.payload
+      });
 
     //appState changing action types.
     case FETCHED_NOTES:

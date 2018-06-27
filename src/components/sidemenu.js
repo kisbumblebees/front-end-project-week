@@ -14,7 +14,9 @@ const SideMenu = props => {
         key="0"
         text="Reload"
         color="red"
-        myFunc={() => props.fetcher(props.backendUrl + "/api/notes")}
+        myFunc={() =>
+          props.fetcher(props.backendUrl + "/api/notes", props.loggedIn)
+        }
       />
     );
 

@@ -58,7 +58,8 @@ class NoteForm extends React.Component {
               this.props.fetcher,
               this.props.backendUrl + "/api/notes",
               { title: this.state.myTitle, textBody: this.state.myContent },
-              this.props.myId
+              this.props.myId,
+              this.props.loggedIn
             )
           }
           text="Save"

@@ -31,12 +31,6 @@ const backendUrl =
 
 //The main app.
 class App extends Component {
-  //Get initial data from the server after the app mounts
-  componentDidMount() {
-    console.log(process.env);
-    if (this.props.loggedIn) this.props.fetcher(backendUrl + "/api/notes");
-  }
-
   //Render the two main subcomponents, SideMenu and ContentArea, and pass them
   //their props.
   render() {
@@ -46,6 +40,7 @@ class App extends Component {
           <Row>
             <Col className="left-side" xs="3">
               <SideMenu
+                loggedIn={this.props.loggedIn}
                 backendUrl={backendUrl}
                 listMethod={this.props.goToList}
                 createMethod={this.props.startCreate}
@@ -60,6 +55,7 @@ class App extends Component {
             </Col>
             <Col className="content" xs="9">
               <ContentArea
+                loggedIn={this.props.loggedIn}
                 backendUrl={backendUrl}
                 viewMethod={this.props.viewNote}
                 appState={this.props.appState}
@@ -84,6 +80,7 @@ class App extends Component {
           createUser={this.props.createUser}
           loginUser={this.props.loginUser}
           backendUrl={backendUrl}
+          fetcher={this.props.fetcher}
         />
       );
     }

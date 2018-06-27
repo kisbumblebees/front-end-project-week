@@ -36,7 +36,8 @@ const NoteView = props => {
                 props.reallyDeleteMethod(
                   props.fetcher,
                   props.backendUrl + "/api/notes",
-                  props.note._id
+                  props.note._id,
+                  props.loggedIn
                 )
               }
             />

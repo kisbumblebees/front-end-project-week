@@ -27,8 +27,8 @@ export const LOGGED_USER = "LOGGED_USER";
 //the app in a loading state, then when the request is complete send a payload
 //to the reducer to update the store.
 
-export const fetcher = url => {
-  const request = axios.get(url);
+export const fetcher = (url, token) => {
+  const request = axios.get(url, { headers: { Authorization: token } });
   return dispatch => {
     dispatch({ type: FETCHING_NOTES });
     request
@@ -41,16 +41,18 @@ export const fetcher = url => {
   };
 };
 
-export const saveEdit = (nextAct, url, note, id) => {
+export const saveEdit = (nextAct, url, note, id, token) => {
   let newNote = Object.assign({}, note, { _id: id });
-  const request = axios.put(url + `/${id}`, newNote);
+  const request = axios.put(url + `/${id}`, newNote, {
+    headers: { Authorization: token }
+  });
   return dispatch => {
     dispatch({ type: SAVE_EDIT });
     request
       .then(data => {
         dispatch({ type: DONE_SAVING });
         console.log(data);
-        nextAct(url);
+        nextAct(url, token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -58,14 +60,16 @@ export const saveEdit = (nextAct, url, note, id) => {
   };
 };
 
-export const reallyDelete = (nextAct, url, id) => {
-  const request = axios.delete(url + "/" + id);
+export const reallyDelete = (nextAct, url, id, token) => {
+  const request = axios.delete(url + "/" + id, {
+    headers: { Authorization: token }
+  });
   return dispatch => {
     dispatch({ type: REALLY_DELETE });
     request
       .then(data => {
         dispatch({ type: DONE_DELETING });
-        nextAct(url);
+        nextAct(url, token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -73,14 +77,14 @@ export const reallyDelete = (nextAct, url, id) => {
   };
 };
 
-export const saveNew = (nextAct, url, note) => {
-  const request = axios.post(url, note);
+export const saveNew = (nextAct, url, note, unused, token) => {
+  const request = axios.post(url, note, { headers: { Authorization: token } });
   return dispatch => {
     dispatch({ type: SAVE_NEW });
     request
       .then(data => {
         dispatch({ type: DONE_SAVING });
-        nextAct(url);
+        nextAct(url, token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -88,13 +92,14 @@ export const saveNew = (nextAct, url, note) => {
   };
 };
 
-export const createUser = (url, cred) => {
+export const createUser = (nextAct, url, cred) => {
   const request = axios.post(url + "/api/users", cred);
   return dispatch => {
     dispatch({ type: CREATING_USER });
     request
       .then(data => {
-        dispatch({ type: CREATED_USER });
+        dispatch({ type: CREATED_USER, payload: data.data.token });
+        nextAct(url + "/api/notes", data.data.token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
@@ -102,13 +107,14 @@ export const createUser = (url, cred) => {
   };
 };
 
-export const loginUser = (url, cred) => {
+export const loginUser = (nextAct, url, cred) => {
   const request = axios.post(url + "/api/auth", cred);
   return dispatch => {
     dispatch({ type: LOGGING_USER });
     request
       .then(data => {
-        dispatch({ type: LOGGED_USER });
+        dispatch({ type: LOGGED_USER, payload: data.data.token });
+        nextAct(url + "/api/notes", data.data.token);
       })
       .catch(err => {
         dispatch({ type: ERROR, payload: err });
