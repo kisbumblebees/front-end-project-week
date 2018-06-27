@@ -9,3 +9,7 @@
   line-height: 80%;
   margin: 20px 0 30px;
 }
+
+#message-area {
+  max-width: 190px;
+}

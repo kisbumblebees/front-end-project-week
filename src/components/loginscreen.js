@@ -22,7 +22,7 @@ class LoginScreen extends React.Component {
   //The HTML:
   render() {
     const stuffToRender = [
-      <Form id="login-form">
+      <Form id="login-form" key="0">
         <h5 className="login-form-heading">{this.props.topText}</h5>
         <FormGroup>
           <Input
@@ -69,13 +69,13 @@ class LoginScreen extends React.Component {
     ];
     if (this.props.appState === "fetching")
       stuffToRender.push(
-        <Alert className="loading-alert" color="dark">
+        <Alert className="loading-alert" color="dark" key="1">
           Loading ...
         </Alert>
       );
     else if (this.props.appState === "error")
       stuffToRender.push(
-        <Alert className="loading-alert" color="danger">
+        <Alert className="loading-alert" color="danger" key="1">
           {this.props.error.message}
         </Alert>
       );

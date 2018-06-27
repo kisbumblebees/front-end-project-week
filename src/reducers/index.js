@@ -20,7 +20,8 @@ import {
   CREATING_USER,
   CREATED_USER,
   LOGGING_USER,
-  LOGGED_USER
+  LOGGED_USER,
+  LOG_OUT
 } from "../actions";
 
 const initialState = {
@@ -28,7 +29,8 @@ const initialState = {
   appState: "list",
   viewId: null,
   error: null,
-  loggedIn: false
+  loggedIn: false,
+  user: null
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -49,8 +51,11 @@ const noteReducer = (state = initialState, action) => {
     case LOGGED_USER:
       return Object.assign({}, state, {
         appState: "list",
-        loggedIn: action.payload
+        loggedIn: action.payload.token,
+        user: action.payload.username
       });
+    case LOG_OUT:
+      return Object.assign({}, state, { loggedIn: false, user: null });
 
     //appState changing action types.
     case FETCHED_NOTES:

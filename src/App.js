@@ -21,7 +21,8 @@ import {
   longestNotes,
   revAlphabetizeNotes,
   createUser,
-  loginUser
+  loginUser,
+  logOut
 } from "./actions";
 
 const backendUrl =
@@ -40,6 +41,9 @@ class App extends Component {
           <Row>
             <Col className="left-side" xs="3">
               <SideMenu
+                logOut={this.props.logOut}
+                message={this.props.message}
+                user={this.props.user}
                 loggedIn={this.props.loggedIn}
                 backendUrl={backendUrl}
                 listMethod={this.props.goToList}
@@ -96,7 +100,9 @@ const mapStateToProps = state => {
     appState: state.appState,
     viewId: state.viewId,
     error: state.error,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    user: state.user,
+    message: state.message
   };
 };
 
@@ -119,6 +125,7 @@ export default connect(
     longestNotes,
     revAlphabetizeNotes,
     createUser,
-    loginUser
+    loginUser,
+    logOut
   }
 )(App);

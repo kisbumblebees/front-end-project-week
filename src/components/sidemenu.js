@@ -1,11 +1,16 @@
 import React from "react";
 import "./sidemenu.css";
 import LambdaButton from "./lambdabutton.js";
+import { Alert } from "reactstrap";
 
 //This component is visible in all app states.  It displays buttons dynamically.
 const SideMenu = props => {
   //Build an array of buttons using conditionals.
-  let buttonArray = [];
+  let buttonArray = [
+    <Alert id="message-area" key="-1" color="success">
+      {`user: ${props.user}`}
+    </Alert>
+  ];
 
   //If there has been an error, give the user a reload button
   if (props.error)
@@ -77,6 +82,10 @@ const SideMenu = props => {
       />
     );
   }
+
+  buttonArray.push(
+    <LambdaButton key="7" text="Log Out" color="red" myFunc={props.logOut} />
+  );
 
   //Render the generated array.
   return (

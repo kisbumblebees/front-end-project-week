@@ -22,6 +22,7 @@ export const CREATING_USER = "CREATING_USER";
 export const CREATED_USER = "CREATED_USER";
 export const LOGGING_USER = "LOGGING_USER";
 export const LOGGED_USER = "LOGGED_USER";
+export const LOG_OUT = "LOG_OUT";
 
 //Asynchronus actions.  These issue actions specific to their operation that put
 //the app in a loading state, then when the request is complete send a payload
@@ -51,7 +52,6 @@ export const saveEdit = (nextAct, url, note, id, token) => {
     request
       .then(data => {
         dispatch({ type: DONE_SAVING });
-        console.log(data);
         nextAct(url, token);
       })
       .catch(err => {
@@ -98,7 +98,7 @@ export const createUser = (nextAct, url, cred) => {
     dispatch({ type: CREATING_USER });
     request
       .then(data => {
-        dispatch({ type: CREATED_USER, payload: data.data.token });
+        dispatch({ type: CREATED_USER, payload: data.data });
         nextAct(url + "/api/notes", data.data.token);
       })
       .catch(err => {
@@ -113,7 +113,7 @@ export const loginUser = (nextAct, url, cred) => {
     dispatch({ type: LOGGING_USER });
     request
       .then(data => {
-        dispatch({ type: LOGGED_USER, payload: data.data.token });
+        dispatch({ type: LOGGED_USER, payload: data.data });
         nextAct(url + "/api/notes", data.data.token);
       })
       .catch(err => {
@@ -181,5 +181,11 @@ export const shortestNotes = () => {
 export const longestNotes = () => {
   return dispatch => {
     dispatch({ type: LONGEST_NOTES });
+  };
+};
+
+export const logOut = () => {
+  return dispatch => {
+    dispatch({ type: LOG_OUT });
   };
 };
