@@ -1,0 +1,12 @@
+#login-screen {
+  max-width: 600px;
+  margin: auto;
+  background: #d8d8d8;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+#login-buttons {
+  display: flex;
+  justify-content: space-around;
+}

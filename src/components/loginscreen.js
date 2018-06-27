@@ -1,5 +1,5 @@
 import React from "react";
-import "./noteform.css";
+import "./loginscreen.css";
 import { Form, FormGroup, Input } from "reactstrap";
 import LambdaButton from "./lambdabutton.js";
 import { Alert } from "reactstrap";
@@ -43,26 +43,28 @@ class LoginScreen extends React.Component {
             value={this.state.password}
           />
         </FormGroup>
-        <LambdaButton
-          myFunc={() =>
-            this.props.loginUser(this.props.fetcher, this.props.backendUrl, {
-              username: this.state.username,
-              password: this.state.password
-            })
-          }
-          text="Login"
-          color="green"
-        />
-        <LambdaButton
-          myFunc={() =>
-            this.props.createUser(this.props.fetcher, this.props.backendUrl, {
-              username: this.state.username,
-              password: this.state.password
-            })
-          }
-          text="New User"
-          color="green"
-        />
+        <div id="login-buttons">
+          <LambdaButton
+            myFunc={() =>
+              this.props.loginUser(this.props.fetcher, this.props.backendUrl, {
+                username: this.state.username,
+                password: this.state.password
+              })
+            }
+            text="Login"
+            color="green"
+          />
+          <LambdaButton
+            myFunc={() =>
+              this.props.createUser(this.props.fetcher, this.props.backendUrl, {
+                username: this.state.username,
+                password: this.state.password
+              })
+            }
+            text="New User"
+            color="green"
+          />
+        </div>
       </Form>
     ];
     if (this.props.appState === "fetching")
@@ -73,11 +75,11 @@ class LoginScreen extends React.Component {
       );
     else if (this.props.appState === "error")
       stuffToRender.push(
-        <Alert className="loading-alert" color="danger">
+        <Alert className="error-alert" color="danger">
           {this.props.error.message}
         </Alert>
       );
-    return stuffToRender;
+    return <div id="login-screen">{stuffToRender}</div>;
   }
 }
 
