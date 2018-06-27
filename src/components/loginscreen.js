@@ -75,7 +75,7 @@ class LoginScreen extends React.Component {
       );
     else if (this.props.appState === "error")
       stuffToRender.push(
-        <Alert className="error-alert" color="danger">
+        <Alert className="loading-alert" color="danger">
           {this.props.error.message}
         </Alert>
       );
